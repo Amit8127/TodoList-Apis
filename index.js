@@ -33,6 +33,8 @@ app.set("view engine", "ejs");
 app.set("trust proxy", 1);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser());
+app.use(bodyParser.json());
 app.use(
   session({
     secret: process.env.SECRET_KEY,
@@ -41,13 +43,13 @@ app.use(
     store: store,
   })
 );
-app.use(cors({
-  origin: ["http://localhost:5173", "https://amittodoapp.netlify.app",],
-  methods: ["GET, POST, PUT, DELETE"],
-  credentials: true,
-}));
-app.use(cookieParser());
-app.use(bodyParser.json());
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://amittodoapp.netlify.app"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
 // DB connection
 mongoose
@@ -127,7 +129,6 @@ app.post("/register", async (req, res) => {
   }
 });
 
-
 app.post("/login", async (req, res) => {
   // Create new utils and check all thinks
   const { loginId, password } = req.body;
@@ -203,7 +204,7 @@ app.post("/logout", isAuth, (req, res) => {
       return res.send({
         status: 200,
         message: "Logout successfull",
-      })
+      });
     }
   });
 });
@@ -223,7 +224,7 @@ app.post("/logout_from_all_devices", isAuth, async (req, res) => {
     return res.send({
       status: 200,
       message: "Logout successfull",
-    })
+    });
   } catch (error) {
     return res.send({
       status: 500,
@@ -304,7 +305,6 @@ app.post("/edit-item", isAuth, async (req, res) => {
       error: error,
     });
   }
-
 
   //find the todo
   try {
