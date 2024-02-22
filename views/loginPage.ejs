@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login Page</title>
+    <style>
+        Body {
+          width: 30%;
+          margin-inline: auto;
+          font-family: Calibri, Helvetica, sans-serif;
+          background-color: rgb(255, 255, 255);
+        }
+        button {
+          background-color: #0041df96;
+          width: 100%;
+          color: rgb(0, 0, 0);
+          border-radius: 5px;
+          padding: 15px;
+          margin: 10px 0px;
+          border: none;
+          cursor: pointer;
+        }
+        input[type="text"],
+        input[type="password"] {
+          width: 100%;
+          margin: 8px 0;
+          padding: 12px 20px;
+          display: inline-block;
+          border: 2px solid #000000;
+          box-sizing: border-box;
+          border-radius: 5px;
+        }
+        button:hover {
+          color: white;
+          background-color: #003fdf;
+        }
+        .cancelbtn {
+          width: auto;
+          padding: 10px 18px;
+          margin: 10px 5px;
+        }
+  
+        .container {
+          padding: 25px;
+          border-radius: 5px;
+          background-color: rgb(239, 248, 251);
+          box-shadow: 3px 3px 20px rgb(193, 191, 191);
+        }
+      </style>
+  </head>
+  <body>
+    <center><h1>Login Form</h1></center>
+    <form action="/login" method="POST">
+      <div class="container">
+        <label for="loginId">Email or Username : </label>
+        <input
+          type="text"
+          placeholder="Enter Email or Username"
+          name="loginId"
+          required
+        />
+        <label for="password">Password : </label>
+        <input
+          type="password"
+          placeholder="Enter Password"
+          name="password"
+          required
+        />
+        <button type="submit">Login</button>
+      </div>
+    </form>
+  </body>
+</html>
