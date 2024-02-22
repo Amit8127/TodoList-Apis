@@ -30,6 +30,7 @@ const store = new mongoDbsession({
 
 // Middleware
 app.set("view engine", "ejs");
+app.set("trust proxy", 1);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
@@ -41,7 +42,7 @@ app.use(
   })
 );
 app.use(cors({
-  origin: ["http://localhost:5173", "https://amittodoapp.netlify.app"],
+  origin: ["http://localhost:5173", "https://amittodoapp.netlify.app",],
   methods: ["GET, POST, PUT, DELETE"],
   credentials: true,
 }));
