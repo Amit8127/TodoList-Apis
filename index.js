@@ -45,7 +45,8 @@ app.use(
 );
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://amittodoapp.netlify.app"],
+    // origin: "http://localhost:5173",
+    origin: "https://amittodoapp.netlify.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -273,6 +274,7 @@ app.post("/create-item", isAuth, async (req, res) => {
 });
 
 app.get("/read-item", isAuth, async (req, res) => {
+  console.log("CREATE ")
   const username = req.session.user.username;
   try {
     const todos = await todoModel.find({ username });
