@@ -41,6 +41,10 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: store,
+    cookie: {
+      sameSite: "none", // "none" for cross-origin requests
+      secure: true, // Set to true if using HTTPS
+    },
   })
 );
 app.use(
@@ -280,7 +284,7 @@ app.post("/create-item", isAuth, async (req, res) => {
 });
 
 app.get("/read-item", isAuth, async (req, res) => {
-  console.log("/read-item WORKING")
+  console.log("/read-item WORKING");
   const username = req.session.user.username;
   try {
     const todos = await todoModel.find({ username });
