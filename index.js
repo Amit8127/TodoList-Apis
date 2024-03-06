@@ -42,7 +42,7 @@ app.use(
     saveUninitialized: false,
     store: store,
     cookie: {
-      sameSite: "none", // "none" for cross-origin requests
+      sameSite: "None", // "none" for cross-origin requests
       secure: true, // Set to true if using HTTPS
     },
   })
