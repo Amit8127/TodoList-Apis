@@ -5,7 +5,6 @@ const isAuth = (req, res, next) => {
   if (req.session.isAuth) {
     console.log("isAuth", req.session.isAuth);
     res.header("Access-Control-Allow-Credentials", true);
-    console.log("befour next");
     next();
     console.log(next);
     console.log("after next");

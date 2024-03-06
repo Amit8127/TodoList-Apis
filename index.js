@@ -49,8 +49,7 @@ app.use(
 );
 app.use(
   cors({
-    // origin: "http://localhost:5173",
-    origin: "https://amittodoapp.netlify.app",
+    origin: ["http://localhost:5173", "https://amittodoapp.netlify.app"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -63,7 +62,7 @@ mongoose
     console.log("Mongoose connectd");
   })
   .catch((error) => {
-    console.log("Error : ", error);
+    console.error("Error : ", error);
   });
 
 // APIs
@@ -137,8 +136,6 @@ app.post("/register", async (req, res) => {
 app.post("/login", async (req, res) => {
   // Create new utils and check all thinks
   const { loginId, password } = req.body;
-  console.log("/login WORKING ");
-  console.log(loginId, password);
 
   //data validation
   try {
@@ -187,7 +184,6 @@ app.post("/login", async (req, res) => {
     req.session.cookie.expires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hour in milliseconds
     req.session.cookie.maxAge = 24 * 60 * 60 * 1000; // 24 hour in milliseconds
 
-    console.log(req.session);
     // return res.redirect("/dashboard");
 
     return res.send({
@@ -284,7 +280,6 @@ app.post("/create-item", isAuth, async (req, res) => {
 });
 
 app.get("/read-item", isAuth, async (req, res) => {
-  console.log("/read-item WORKING");
   const username = req.session.user.username;
   try {
     const todos = await todoModel.find({ username });
