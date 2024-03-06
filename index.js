@@ -177,6 +177,9 @@ app.post("/login", async (req, res) => {
       email: userDb.email,
       username: userDb.username,
     };
+    // Session base Authentication with an expiration time of 24 hour (1440 minutes)
+    req.session.cookie.expires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hour in milliseconds
+    req.session.cookie.maxAge = 24 * 60 * 60 * 1000; // 24 hour in milliseconds
 
     // return res.redirect("/dashboard");
 
