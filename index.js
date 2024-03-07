@@ -281,8 +281,16 @@ app.post("/create-item", isAuth, async (req, res) => {
 
 app.get("/read-item", isAuth, async (req, res) => {
   const username = req.session.user.username;
+
+  // Get page and limit from query parameters or use default values
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 9;
+
   try {
-    const todos = await todoModel.find({ username });
+    const skip = (page - 1) * limit;
+
+    const todos = await todoModel.find({ username }).skip(skip).limit(limit);
+
     return res.send({
       status: 200,
       message: "Read success",
