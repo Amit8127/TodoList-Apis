@@ -349,6 +349,43 @@ app.post("/edit-item", isAuth, async (req, res) => {
   }
 });
 
+app.put("/update-item", isAuth, async (req, res) => {
+  //id, todo, username
+  const { id, status } = req.body;
+  const username = req.session.user.username;
+
+  //find the todo
+  try {
+    const todoDb = await todoModel.findOne({ _id: id });
+
+    if (!todoDb) {
+      return res.send({
+        status: 404,
+        message: "Todo not found",
+      });
+    }
+    //check the ownership
+    if (username !== todoDb.username) {
+      return res.send({
+        status: 403,
+        message: "Not authorized to edit the todo.",
+      });
+    }
+    await todoModel.findOneAndUpdate({ _id: id }, { status: status });
+
+    return res.send({
+      status: 200,
+      message: "Todo status update successfully",
+    });
+  } catch (error) {
+    return res.send({
+      status: 500,
+      message: "Database error",
+      error: error,
+    });
+  }
+});
+
 app.delete("/delete-item/:id", isAuth, async (req, res) => {
   try {
     const { id } = req.params;
